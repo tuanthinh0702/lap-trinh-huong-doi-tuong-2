@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CARO</title>
+  <style>
+    .cell {
+      width: 40px;
+      height: 40px;
+      border: solid 1px blue;
+      text-align: center;
+      font-size: 20pt;
+      cursor: pointer;
+      color: red;
+    }
+  </style>
+</head>
+<body>
+<h1>Cờ Caro</h1>
+<p id="display"></p>
+<button onclick="playGame()">STAR GAME</button>
+<label><input id="cellNumber" type="number" style="width: 40px"></label>
+<button onclick="replay()">REPLAY</button>
+<p id="playerWin"></p>
+
+<script>
+  let board = [];
+  let turn = 0;
+  let isWinGame = false;
+  function playGame() {
+    let n = document.getElementById("cellNumber").value;
+    board = createBoard(n);
+    showBoardCaro(board);
+  }
+  function replay() {
+    isWinGame = false;
+    let n = document.getElementById("cellNumber").value;
+    board = createBoard(n);
+    showBoardCaro(board);
+  }
+  function createBoard(n) {
+    let board = [];
+    for (let i = 0; i < n; i++) {
+      board[i] = new Array(n);
+      for (let j = 0; j < n; j++) {
+        board[i][j] = " ";
+      }
+    }
+    return board;
+  }
+  function showBoardCaro(board) {
+    let data = "<table>";
+    for (let i = 0; i < board.length; i++) {
+      data += "<tr>";
+      for (let j = 0; j < board[i].length; j++) {
+        data += "<td class='cell' onclick='clickCell(" + i + "," + j + ")'>" + board[i][j] + "</td>";
+      }
+      data += "</tr>";
+    }
+    data += "</table>";
+    document.getElementById("display").innerHTML = data;
+  }
+  function clickCell(row, column) {
+    if(!isWinGame){
+      turn++;
+      let value;
+      if (turn % 2 !== 0) {
+        value = "X";
+      } else {
+        value = "O";
+      }
+      if (board[row][column] !== " ") {
+        board[row][column] = board[row][column];
+        turn--;
+      }
+      if (board[row][column] === " ") {
+        board[row][column] = value;
+      }
+      showBoardCaro(board);
+      checkWinner(row, column, value);
+    }
+  }
+  function checkWinner(x, y, v) {
+    if (winGame(x, y, v)) {
+      isWinGame = true;
+      if (v === "X") {
+        document.getElementById("playerWin").innerHTML = "Player 1 Win!!!";
+      } else if (v === "O") {
+        document.getElementById("playerWin").innerHTML = "Player 2 Win!!!";
+      }
+    }
+  }
+  function winGame(x, y, v) {
+    return checkRowHorizontal(x, y, v) || checkRowVertical(x, y, v) || checkRowCrossUp(x, y, v) || checkRowCrossDown(x,y,v);
+  }
+  function checkRowHorizontal(x, y, v) {
+    let count = 0;
+    for (let k = -4; k <= 4; k++) {
+      if (y + k >= 0 && y + k < board.length) {
+        if (board[x][y + k] === v) {
+          count++;
+        } else if (count < 5) {
+          count = 0;
+        }
+      }
+    }
+    if (count === 5) {
+      return true;
+    } else if (count === 0) {
+      return false;
+    }
+  }
+  function checkRowVertical(x, y, v) {
+    let count = 0;
+    for (let k = -4; k <= 4; k++) {
+      if (x + k >= 0 && x + k < board.length) {
+        if (board[x + k][y] === v) {
+          count++;
+        } else if (count < 5) {
+          count = 0;
+        }
+      }
+    }
+    if (count === 5) {
+      return true;
+    } else if (count === 0) {
+      return false;
+    }
+  }
+  function checkRowCrossUp(x, y, v) {
+    let count = 0;
+    for (let k = 4, j = -4; k >= -4, j <= 4; k--, j++) {
+      if (x + k >= 0 && x + k < board.length && y + j >= 0 && y + j < board.length) {
+        if (board[x + k][y + j] === v) {
+          count++;
+        } else if (count < 5) {
+          count = 0;
+        }
+      }
+    }
+    if (count === 5) {
+      return true;
+    } else if (count === 0) {
+      return false;
+    }
+  }
+  function checkRowCrossDown(x, y, v) {
+    let count = 0;
+    for (let k = -4; k <= 4; k++) {
+      if (x + k >= 0 && x + k < board.length && y + k >= 0 && y + k < board.length) {
+        if (board[x + k][y + k] === v) {
+          count++;
+        } else if (count < 5) {
+          count = 0;
+        }
+      }
+    }
+    if (count === 5) {
+      return true;
+    } else if (count === 0) {
+      return false;
+    }
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>[*Bài tập] Phát triển ứng dụng mô phỏng lại quá trình mèo bắt chuột và ăn chuột.
+      Mục tiêu</title>
+</head>
+<body>
+<script>
+  var mouse = function (count,name,weight,speed) {
+    this.count = count;
+    this.name = name;
+    this.weight = weight;
+    this.speed = speed;
+    this.status =false;
+    this.sievemouse = function () {
+      console.log("chít chít");
+
+    }
+
+  }
+   var cat = function (name,weight,speed) {
+    this.name = name;
+    this.weight = weight;
+    this.speedmax = speed;
+
+
+     this.sievecat = function () {
+       console.log("meo meo");
+     }
+
+     this.catchthemouse = function (meo,chuot) {
+
+       if(meo.speedmax > chuot.speed && chuot.count ==1)
+       {
+
+          chuot.status = true;
+
+       }
+       else
+       {
+         console.log("chuột chạy mất rồi");
+       }
+
+     };
+
+     this.eatmouse = function (meo, chuot) {
+       if(chuot.status = true)
+       {
+         meo.weight +=  chuot.weight;
+         chuot.status = true;
+         chuot.speed = 0;
+        chuot.status = true;
+         document.write("Mèo đã ăn chuột")
+       }
+
+     }
+
+   }
+   var mickey = new mouse(1,"a",5,2);
+  var tom = new cat("b",10,5);
+  tom.catchthemouse(tom, mickey);
+console.log(mickey);
+  console.log(tom);
+  tom.eatmouse(tom,mickey);
+  console.log(mickey);
+  console.log(tom);
+
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>exx</title>
+</head>
+<body>
+<canvas id="canvas" width="1000px" height="500 px" style ="border:1px solid #d3d3d3 ;"></canvas>
+<script>
+var Circle =function (x,y,radius) {
+  this.x=x;
+  this.y=y;
+  this.radius=radius;
+  this.dx=10;
+  this.dy=10;
+
+  this.moveX=function()
+  {
+    return this.x+=this.dx;
+  }
+  this.moveY=function () {
+    return this.y+=this.dy;
+
+  }
+  this.move=function () {
+    this.moveX();
+    this.moveY();
+
+  }
+}
+
+let x = Math.floor(Math.random()*window.innerWidth) ;
+let y = Math.floor(Math.random()*window.innerHeight);
+let radius=Math.random()*80;
+let color= getRandomColor();
+var circle = new Circle(x,y,radius);
+let canvas =document.getElementById("canvas");
+let ctx = canvas.getContext("2d");
+ function getRandomHex() {
+  return Math.floor(Math.random()*255);
+
+ }
+ function getRandomColor() {
+   let red = getRandomHex();
+   let  green = getRandomHex();
+   let blue = getRandomHex();
+   return "rgb("+red+green+blue+")";
+
+ }
+ setInterval(function () {
+   ctx.clearRect(0,0,canvas.offsetWidth,canvas.offsetHeight);
+   if(circle.x<=0+circle.radius||circle.x>=canvas.offsetWidth -circle.radius)
+   {
+     circle.dx=-circle.dx;
+   }
+   if(circle.y<=0+circle.radius||circle.y>=canvas.offsetHeight-circle.radius)
+   {
+     circle.dy=-circle.dy;
+   }
+   circle.move();
+   ctx.beginPath();
+   ctx.arc(circle.x,circle.y,circle.radius,0,2*Math.PI);
+   ctx.fillStyle=color;
+   ctx.fill();
+ },50);
+
+
+   
+
+</script>
+</body>
+</html>

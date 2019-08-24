@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>bài tập adam và eva</title>
+</head>
+<body>
+<script>
+  var Apple = function (weight) {
+    this.weight = weight;
+    this.decrease = function () {
+      if(this.weight>0)
+      {
+        this.weight--;
+      }
+
+    };
+    this.isEmpty = function () {
+      if (this.weight == 0) {
+        return true;
+      } else {
+        return false;
+      }
+
+    }
+    this.getWeight =function()
+    {
+      return this.weight;
+    }
+  }
+
+  var Human = function (name, gender, weight) {
+    this.name = name;
+    this.gender = gender;
+    this.weight = weight;
+    this.status = true;
+    this.isMale = function () {
+      if (this.gender == "nam") {
+        return true;
+      } else {
+        return false;
+      }
+
+    };
+
+    this.setGender = function (gender) {
+      this.gender = gender;
+    };
+
+
+    this.checkApple = function (apple) {
+      if (this.status == true) {
+        alert("quả táo còn nguyên");
+      } else {
+        alert("quả táo không còn nguyên ")
+      }
+
+    };
+
+    this.eat = function (apple) {
+      if (!apple.isEmpty()) {
+        this.weight += 1;
+        apple.decrease();
+        console.log(`${this.name} eat apple`);
+      }
+
+    };
+
+    this.say = function (string) {
+      
+    }
+    {
+     return this.string;
+    }
+    ;
+    this.getName = function () {
+      return this.name;
+
+    };
+    this.setName(name)
+    {
+      this.name = name;
+    }
+    this.getweight = function () {
+      return this.weight;
+
+    }
+    this.setweight(weight)
+    {
+      this.weight = weight;
+    }
+  }
+
+
+
+  var apple = new Apple(10);
+  let human = new Human("thinh","nam",10);
+  console.log(human.eat(apple));
+</script>
+</body>
+</html>
